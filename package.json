@@ -1,0 +1,14 @@
+{
+  "name": "playwright-sample-ts",
+  "version": "1.0.0",
+  "description": "A sample repository of a Playwright test framework built with Typescript",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "cwf5094",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.41.1",
+    "@types/node": "^20.11.7"
+  }
+}
