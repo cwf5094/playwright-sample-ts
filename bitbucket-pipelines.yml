@@ -1,0 +1,10 @@
+pipelines:
+  default:
+    - step:
+      name: Playwright Tests
+      image: mcr.microsoft.com/playwright:v1.41.1-jammy
+      script:
+        - npm ci # Install project dependencies
+        - npx playwright test # Run your Playwright tests
+      artifacts:
+        - playwright-report/index.html
