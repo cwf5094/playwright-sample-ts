@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "npx playwright test",
-    "test:debug": "npx playwright test --debug"
+    "test:debug": "npx playwright test --debug",
+    "test:api": "npx playwright test --grep api.spec.ts",
+    "test:e2e": "npx playwright test --grep e2e.spec.ts",
+    "test:ui": "npx playwright test --grep ui.spec.ts"
   },
   "keywords": [],
   "author": "cwf5094",
