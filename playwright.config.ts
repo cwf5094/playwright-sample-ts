@@ -29,6 +29,15 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
+    extraHTTPHeaders: {
+      // We set this header per GitHub guidelines.
+      Accept: 'application/vnd.github+json',
+      // Add authorization token to all requests.
+      // Assuming personal access token available in the environment (see .env.template)
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      'X-GitHub-Api-Version': '2022-11-28',
+    },
   },
 
   /* Configure projects for major browsers */
