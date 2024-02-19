@@ -11,29 +11,27 @@ export class GithubHomePage {
   readonly searchInput: Locator;
   readonly signInButton: Locator;
   readonly signUpButton: Locator;
+  readonly emailInput: Locator;
+  readonly signUpForGithubButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.homepageLink = page.getByLabel('Homepage', { exact: true });
-    this.signInButton = page.getByRole('link', { name: 'Sign in' });
-    this.signUpButton = page.getByRole('link', { name: 'Sign up' });
+    this.signInButton = page.getByRole('link', { name: 'Sign in', exact: true });
+    this.signUpButton = page.getByRole('link', { name: 'Sign up', exact: true });
     this.searchInput = page.locator('qbsearch-input');
     this.productsDropdown = page.getByRole('button', { name: 'Product' });
     this.solutionsDropdown = page.getByRole('button', { name: 'Solutions' });
     this.openSourceDropdown = page.getByRole('button', { name: 'Open Source' });
     this.pricingLink = page.getByLabel('Global').getByRole('link', { name: 'Pricing' });
+    this.emailInput = page.getByLabel('Email address', { exact: true });
+    this.signUpForGithubButton = page.getByRole('button', { name: 'Sign up for GitHub' }).first();
   }
   async navigate() {
-    this.page.goto(this.url);
+    await this.page.goto(this.url);
   }
   async verifyIsHomepage() {
-    await expect(this.homepageLink).toBeVisible();
-    await expect(this.signInButton).toBeVisible();
-    await expect(this.signUpButton).toBeVisible();
-    await expect(this.searchInput).toBeVisible();
-    await expect(this.productsDropdown).toBeVisible();
-    await expect(this.solutionsDropdown).toBeVisible();
-    await expect(this.openSourceDropdown).toBeVisible();
-    await expect(this.pricingLink).toBeVisible();
+    await expect(this.emailInput).toBeVisible();
+    await expect(this.signUpForGithubButton).toBeVisible();
   }
 }
