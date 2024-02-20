@@ -4,15 +4,14 @@ const REPO = 'test-repo-1';
 const USER = 'cwf5094';
 
 test.describe('Github API Endpoint - /repos/{USER}/{REPO}/issues', () => {
+  test.skip(
+    !!process.env.CI,
+    'This test does not work with the Github Actions token, as it cannot create/delete repositories',
+  );
   test.describe.configure({ mode: 'default' });
   test.beforeAll(async ({ request }) => {
     // Create a new repository
     const response = await request.post('https://api.github.com/user/repos', {
-      // headers: {
-      //   Accept: 'application/vnd.github+json',
-      //   Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-      //   'X-GitHub-Api-Version': '2022-11-28',
-      // },
       data: {
         name: REPO,
       },
@@ -24,11 +23,6 @@ test.describe('Github API Endpoint - /repos/{USER}/{REPO}/issues', () => {
     const expectedTitle = '[Bug] report 1';
     const expectedDescription = 'Bug description';
     const newIssue = await request.post(`https://api.github.com/repos/${USER}/${REPO}/issues`, {
-      // headers: {
-      //   Accept: 'application/vnd.github+json',
-      //   Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-      //   'X-GitHub-Api-Version': '2022-11-28',
-      // },
       data: {
         owner: USER,
         repo: REPO,
@@ -40,11 +34,6 @@ test.describe('Github API Endpoint - /repos/{USER}/{REPO}/issues', () => {
     expect(newIssue.ok()).toBeTruthy();
 
     const issues = await request.get(`https://api.github.com/repos/${USER}/${REPO}/issues`, {
-      // headers: {
-      //   Accept: 'application/vnd.github+json',
-      //   Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-      //   'X-GitHub-Api-Version': '2022-11-28',
-      // },
       data: {
         owner: USER,
         repo: REPO,
@@ -63,11 +52,6 @@ test.describe('Github API Endpoint - /repos/{USER}/{REPO}/issues', () => {
     const expectedTitle = '[Feature] request 1';
     const expectedDescription = 'Feature description';
     const newIssue = await request.post(`https://api.github.com/repos/${USER}/${REPO}/issues`, {
-      // headers: {
-      //   Accept: 'application/vnd.github+json',
-      //   Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-      //   'X-GitHub-Api-Version': '2022-11-28',
-      // },
       data: {
         title: expectedTitle,
         body: expectedDescription,
@@ -76,13 +60,7 @@ test.describe('Github API Endpoint - /repos/{USER}/{REPO}/issues', () => {
     console.log(newIssue);
     expect(newIssue.ok()).toBeTruthy();
 
-    const issues = await request.get(`https://api.github.com/repos/${USER}/${REPO}/issues`, {
-      // headers: {
-      //   Accept: 'application/vnd.github+json',
-      //   Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-      //   'X-GitHub-Api-Version': '2022-11-28',
-      // },
-    });
+    const issues = await request.get(`https://api.github.com/repos/${USER}/${REPO}/issues`, {});
     expect(issues.ok()).toBeTruthy();
     expect(await issues.json()).toContainEqual(
       expect.objectContaining({
@@ -93,13 +71,7 @@ test.describe('Github API Endpoint - /repos/{USER}/{REPO}/issues', () => {
   });
   test.afterAll(async ({ request }) => {
     // Delete the repository
-    const response = await request.delete(`https://api.github.com/repos/${USER}/${REPO}`, {
-      // headers: {
-      //   Accept: 'application/vnd.github+json',
-      //   Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-      //   'X-GitHub-Api-Version': '2022-11-28',
-      // },
-    });
+    const response = await request.delete(`https://api.github.com/repos/${USER}/${REPO}`, {});
     console.log(response);
     expect(response.ok()).toBeTruthy();
   });
