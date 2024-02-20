@@ -16,7 +16,6 @@ test.describe('Github API Endpoint - /repos/{USER}/{REPO}/issues', () => {
         name: REPO,
       },
     });
-    console.log(response);
     expect(response.ok()).toBeTruthy();
   });
   test('Bugs', async ({ request }) => {
@@ -30,7 +29,6 @@ test.describe('Github API Endpoint - /repos/{USER}/{REPO}/issues', () => {
         body: expectedDescription,
       },
     });
-    console.log(newIssue);
     expect(newIssue.ok()).toBeTruthy();
 
     const issues = await request.get(`https://api.github.com/repos/${USER}/${REPO}/issues`, {
@@ -57,7 +55,6 @@ test.describe('Github API Endpoint - /repos/{USER}/{REPO}/issues', () => {
         body: expectedDescription,
       },
     });
-    console.log(newIssue);
     expect(newIssue.ok()).toBeTruthy();
 
     const issues = await request.get(`https://api.github.com/repos/${USER}/${REPO}/issues`, {});
@@ -72,7 +69,6 @@ test.describe('Github API Endpoint - /repos/{USER}/{REPO}/issues', () => {
   test.afterAll(async ({ request }) => {
     // Delete the repository
     const response = await request.delete(`https://api.github.com/repos/${USER}/${REPO}`, {});
-    console.log(response);
     expect(response.ok()).toBeTruthy();
   });
 });
