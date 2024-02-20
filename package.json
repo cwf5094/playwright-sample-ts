@@ -2,7 +2,6 @@
   "name": "playwright-sample-ts",
   "version": "1.0.0",
   "description": "A sample repository of a Playwright test framework built with Typescript",
-  "main": "index.js",
   "scripts": {
     "test": "npx playwright test",
     "test:debug": "npx playwright test --debug",

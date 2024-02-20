@@ -16,9 +16,10 @@ type DataFixture = {
 
 // Extend base test by providing each data object as a new feature
 // This new "test" can be used in any test file, and each of them will have access to the fixtures
+// Note: All fixtures require a valid database connection
 export const test = base.extend<DataFixture>({
-  //   users: async ({}, use) => {
-  //     await WebUsers.init();
-  //     await use(WebUsers);
-  //   },
+  users: async ({}, use) => {
+    await WebUsers.init();
+    await use(WebUsers);
+  },
 });

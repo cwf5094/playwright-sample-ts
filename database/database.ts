@@ -17,8 +17,10 @@ const sqlConfig = {
 };
 
 const pool = new ConnectionPool(sqlConfig);
-const poolConnect = pool.connect();
 
+pool.on('connection', () => {
+  console.log('Connection established');
+});
 pool.on('error', (err) => {
   console.log(err);
 });
@@ -26,7 +28,7 @@ pool.on('error', (err) => {
 export default {
   query: async function (queryStr: string) {
     let results;
-    await poolConnect;
+    const poolConnect = await pool.connect();
 
     try {
       const request = pool.request();
