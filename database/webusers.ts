@@ -3,25 +3,30 @@ import { WebUser } from './tables/webuser';
 
 let users: Array<WebUser>;
 
-export default {
+export type WebUsersFixture = {
   /**
    * Get the user with the given id
    * @param id - UserID of the WebUser
    */
-  getByID: function (id: number) {
-    return users.find((user: WebUser) => user.id === id);
-  },
+  getByID(id: number): WebUser | undefined;
   /**
    * Get the user with the given username
    * @param username - UserName of the WebUser
    */
-  getByUsername: function (username: string) {
-    return users.find((user: WebUser) => user.username === username);
-  },
+  getByUsername(username: string): WebUser | undefined;
   /**
    * Initializes the values for all WebUsers on the current database
    * @param force - If false, only load data if the current set is undefined
    */
+  init(force?: boolean): Promise<void>;
+};
+export default {
+  getByID: function (id: number) {
+    return users.find((user: WebUser) => user.id === id);
+  },
+  getByUsername: function (username: string) {
+    return users.find((user: WebUser) => user.username === username);
+  },
   init: async function (force: boolean = false) {
     if (force || !users) {
       const sqlQuery = 'select * from WebUser';
@@ -39,4 +44,4 @@ export default {
       console.log('WebUser load aborted: data already exists');
     }
   },
-};
+} satisfies WebUsersFixture;
